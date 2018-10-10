@@ -13,3 +13,4 @@ link_directories(${LLVM_LIBRARY_DIRS})
 add_subdirectory(skeleton)  # Use your pass name here.
 add_subdirectory(ollvm)  # ollvm
 add_subdirectory(Hikari)  # Hikari
+add_subdirectory(Armariris)  # Armariris
