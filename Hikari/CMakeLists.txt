@@ -24,6 +24,7 @@ add_library(Hikari MODULE
         include/Transforms/Obfuscation/StringEncryption.h
         include/Transforms/Obfuscation/Substitution.h
         include/Transforms/Obfuscation/Utils.h
+        Enter.cpp
         )
 
 # Use C++11 to compile your pass (i.e., supply -std=c++11).

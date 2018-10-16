@@ -12,6 +12,7 @@ add_library(ollvm MODULE
     include/Transforms/Obfuscation/Split.h
     include/Transforms/Obfuscation/Substitution.h
     include/Transforms/Obfuscation/Utils.h
+    Enter.cpp
 )
 
 # Use C++11 to compile your pass (i.e., supply -std=c++11).

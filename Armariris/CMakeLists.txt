@@ -9,6 +9,7 @@ add_library(Armariris MODULE
         include/Transforms/Obfuscation/StringObfuscation.h
         include/Transforms/Obfuscation/Substitution.h
         include/Transforms/Obfuscation/Utils.h
+        Enter.cpp
         )
 
 # Use C++11 to compile your pass (i.e., supply -std=c++11).
