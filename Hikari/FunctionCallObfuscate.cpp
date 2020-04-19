@@ -231,10 +231,15 @@ struct FunctionCallObfuscate : public FunctionPass {
         false); // int has a length of 32 on both 32/64bit platform
     FunctionType *dlsym_type =
         FunctionType::get(Int8PtrTy, {Int8PtrTy, Int8PtrTy}, false);
+#if LLVM_VERSION_MAJOR >= 9
+    FunctionCallee dlopen_decl = M->getOrInsertFunction("dlopen", dlopen_type);
+    FunctionCallee dlsym_decl = M->getOrInsertFunction("dlsym", dlsym_type);
+#else
     Function *dlopen_decl =
         cast<Function>(M->getOrInsertFunction("dlopen", dlopen_type));
     Function *dlsym_decl =
         cast<Function>(M->getOrInsertFunction("dlsym", dlsym_type));
+#endif
     // Begin Iteration
     for (BasicBlock &BB : F) {
       for (auto I = BB.getFirstInsertionPt(), end = BB.end(); I != end; ++I) {

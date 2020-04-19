@@ -79,9 +79,12 @@ bool Flattening::flatten(Function *f) {
   // END OF SCRAMBLER
 
   // Lower switch
+#if LLVM_VERSION_MAJOR >= 9
+  // FIXME: Pass has not been inserted into a PassManager object!
+#else
   FunctionPass *lower = createLowerSwitchPass();
   lower->runOnFunction(*f);
-
+#endif
   // Save all original BB
   //errs()<<"Flatten: "<<f->getName()<<"\n";
   for (Function::iterator i = f->begin(); i != f->end(); ++i) {

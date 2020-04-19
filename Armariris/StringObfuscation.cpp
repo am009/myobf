@@ -137,9 +137,15 @@ namespace llvm {
                         random_stream << StringObfDecodeRandomName;
                         random_stream >> random_str;
                         StringObfDecodeRandomName++;
+#if LLVM_VERSION_MAJOR >= 9
+                   FunctionCallee c = mod->getOrInsertFunction(".datadiv_decode" + random_str, FuncTy);
+                   Function* fdecode = cast<Function>(c.getCallee());
+                   fdecode->setCallingConv(CallingConv::C);
+#else
                         Constant* c = mod->getOrInsertFunction(".datadiv_decode" + random_str, FuncTy);
                         Function* fdecode = cast<Function>(c);
                         fdecode->setCallingConv(CallingConv::C);
+#endif
 
 
                         BasicBlock* entry = BasicBlock::Create(mod->getContext(), "entry", fdecode);
