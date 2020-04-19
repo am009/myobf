@@ -181,13 +181,21 @@ namespace llvm {
                                 Value *const_key=builder.getInt8(key);
                                 Value *GEP=builder.CreateGEP(gvar,ArrayRef<Value*>(indexList, 2),"arrayIdx");
                                 LoadInst *loadElement=builder.CreateLoad(GEP,false);
+#if LLVM_VERSION_MAJOR >= 10
+                                loadElement->setAlignment(MaybeAlign(1));
+#else
                                 loadElement->setAlignment(1);
+#endif
                                 //errs()<<"Type: "<<*loadElement<<"\n";
                                 //CastInst* extended = new ZExtInst(const_key, loadElement->getType(), "extended", for_body);
                                 //Value* extended = builder.CreateZExtOrBitCast(const_key, loadElement->getType(),"extended");
                                 Value *Xor = builder.CreateXor(loadElement,const_key,"xor");
                                 StoreInst *Store = builder.CreateStore(Xor, GEP,false);
+#if LLVM_VERSION_MAJOR >= 10
+                                Store->setAlignment(MaybeAlign(1));
+#else
                                 Store->setAlignment(1);
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 Value *stepValue = builder.getInt32(1);

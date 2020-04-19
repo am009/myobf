@@ -189,12 +189,12 @@ extern ManagedStatic<CryptoUtils> cryptoutils;
 /* Various logical functions */
 #define Ch(x, y, z) (z ^ (x &(y ^ z)))
 #define Maj(x, y, z) (((x | y) & z) | (x &y))
-#define S(x, n) RORc((x), (n))
+#define __S(x, n) RORc((x), (n))
 #define R1(x, n) (((x) & 0xFFFFFFFFUL) >> (n))
-#define Sigma0(x) (S(x, 2) ^ S(x, 13) ^ S(x, 22))
-#define Sigma1(x) (S(x, 6) ^ S(x, 11) ^ S(x, 25))
-#define Gamma0(x) (S(x, 7) ^ S(x, 18) ^ R1(x, 3))
-#define Gamma1(x) (S(x, 17) ^ S(x, 19) ^ R1(x, 10))
+#define Sigma0(x) (__S(x, 2) ^ __S(x, 13) ^ __S(x, 22))
+#define Sigma1(x) (__S(x, 6) ^ __S(x, 11) ^ __S(x, 25))
+#define Gamma0(x) (__S(x, 7) ^ __S(x, 18) ^ R1(x, 3))
+#define Gamma1(x) (__S(x, 17) ^ __S(x, 19) ^ R1(x, 10))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define RND(a, b, c, d, e, f, g, h, i, ki)                                     \

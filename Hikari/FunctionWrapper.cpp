@@ -82,12 +82,21 @@ struct FunctionWrapper : public ModulePass {
     // Instruction outside its BB  Too much trouble for a hobby project
     // To be precise, we only keep CS that refers to a non-intrinsic function
     // either directly or through casting
+#if LLVM_VERSION_MAJOR >= 10
+      if (calledFunction == nullptr ||
+          (!isa<ConstantExpr>(calledFunction) &&
+           !isa<Function>(calledFunction)) ||
+          CS->getIntrinsicID() != Intrinsic::not_intrinsic) {
+          return nullptr;
+      }
+#else
     if (calledFunction == nullptr ||
         (!isa<ConstantExpr>(calledFunction) &&
          !isa<Function>(calledFunction)) ||
         CS->getIntrinsicID() != Intrinsic::ID::not_intrinsic) {
       return nullptr;
     }
+#endif
     if (Function *tmp = dyn_cast<Function>(calledFunction)) {
       if (tmp->getName().startswith("clang.")) {
         // Clang Intrinsic
