@@ -17,6 +17,9 @@ static void registerHikariModulePass(const PassManagerBuilder &,
 static void registerHikariFunctionPass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
     PM.add(createBogusControlFlowPass(true));
+#if LLVM_VERSION_MAJOR >= 9
+    PM.add(createLowerSwitchPass());
+#endif
     PM.add(createFlatteningPass(true));
     PM.add(createFunctionCallObfuscatePass(true));
     PM.add(createIndirectBranchPass(true));

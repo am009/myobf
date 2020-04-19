@@ -14,6 +14,9 @@ using namespace llvm;
 static void registerOllvmPass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
     PM.add(createBogus(true));
+#if LLVM_VERSION_MAJOR >= 9
+    PM.add(createLowerSwitchPass());
+#endif
     PM.add(createFlattening(true));
     PM.add(createSplitBasicBlock(true));
     PM.add(createSubstitution(true));

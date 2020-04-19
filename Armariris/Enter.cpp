@@ -17,6 +17,9 @@ static void registerArmaririsModulePass(const PassManagerBuilder &,
 
 static void registerArmaririsFunctionPass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
+#if LLVM_VERSION_MAJOR >= 9
+    PM.add(createLowerSwitchPass());
+#endif
     PM.add(createFlattening(true));
     PM.add(createSubstitution(true));
 }
