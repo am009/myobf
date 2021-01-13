@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4)
 project(llvm-pass-tutorial)
 
 # we need LLVM_HOME in order not automatically set LLVM_DIR
-set(ENV{LLVM_HOME} /usr/lib/llvm-10)
+set(ENV{LLVM_HOME} /usr/local)
 if(NOT DEFINED ENV{LLVM_HOME})
     message(FATAL_ERROR "$LLVM_HOME is not defined")
 else ()
